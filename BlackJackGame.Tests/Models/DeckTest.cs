@@ -33,6 +33,7 @@ namespace BlackJackGame.Tests.Models {
             }
         }
 
+        [Fact]
         public void Draw_InvalidOperationException_NoCardsLeft() {
             Deck deck = new Deck();
             for(int i = 0; i < 52; i++) {

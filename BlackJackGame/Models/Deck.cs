@@ -20,13 +20,25 @@ namespace BlackJackGame {
 
         #region Methods
         public BlackJackCard Draw() {
-            var card = _cards[0];
-            _cards.RemoveAt(0);
-            return card;
+            if (_cards.Count != 0) {
+                var card = _cards[0];
+                _cards.RemoveAt(0);
+                return card;
+            }
+            else {
+                throw new InvalidOperationException();
+            }
         }
 
         public void Shuffle() {
-            throw new NotImplementedException();
+            Random r = new Random();
+            for(int i = _cards.Count-1; i > 0; i--) {
+                int random = r.Next(i);
+                int temp = i;
+                _cards[i] = _cards[random];
+                _cards[random] = _cards[random]; 
+
+            }
 
         }
         #endregion
