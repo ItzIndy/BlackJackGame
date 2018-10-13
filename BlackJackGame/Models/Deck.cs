@@ -6,7 +6,7 @@ namespace BlackJackGame {
     public class Deck {
         #region Fields
         private Random _random;
-        private IList<BlackJackCard> _cards;
+        protected IList<BlackJackCard> _cards;
         #endregion
 
         #region Constructor
@@ -26,7 +26,7 @@ namespace BlackJackGame {
                 return card;
             }
             else {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Deck is leeg!");
             }
         }
 

@@ -8,7 +8,7 @@ namespace BlackJackGame.Models {
 
         public IEnumerable<BlackJackCard> Cards { get { return _cards; } }
         public int NrOfCards { get { return _cards.Count; } }
-        public int Value { get { return CalculateValue(); } }
+        public int Value { get { return CalculateValue(); } set { } }
 
         public Hand() {
             _cards = new List<BlackJackCard>();
