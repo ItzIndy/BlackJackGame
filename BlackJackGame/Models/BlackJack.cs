@@ -31,26 +31,33 @@ namespace BlackJackGame.Models {
         public void PassToDealer() {
             AdjustGameState();
             DealerHand.TurnAllCardsFaceUp();
-            while (GameState != GameState.GameOver) {
-                AddCardToHand(DealerHand, true);
-                AdjustGameState();
-            }
+           
+            AddCardToHand(DealerHand, true);
+            AdjustGameState();
+            
+            
+
 
         }
 
         public string GameSummary() {
-            string temp = "";
+            string temp = null;
             if (PlayerHand.Value > 21) {
                 temp = "Player Burned, Dealer Wins";
-            }else if (PlayerHand.Value == 21) {
+            }
+            else if ((PlayerHand.Value == 21 || PlayerHand.Value == 11) && GameState == GameState.GameOver) {
                 temp = "BLACKJACK";
-            }else if (DealerHand.Value > 21) {
-                temp = "Dealer Burned, Player wins";
-            }else if (PlayerHand.Value == DealerHand.Value) {
-                temp = "Equal, Dealer Wins";
-            }else if(PlayerHand.Value>DealerHand.Value && PlayerHand.Value < 21) {
+            }
+            else if (DealerHand.Value > 21 && GameState == GameState.GameOver) {
+                temp = "Dealer Burned, player wins";
+            }
+            else if (PlayerHand.Value == DealerHand.Value && GameState == GameState.GameOver) {
+                temp = "Equal, dealer wins";
+            }
+            else if (PlayerHand.Value > DealerHand.Value && PlayerHand.Value < 21 && GameState == GameState.GameOver) {
                 temp = "Player Wins";
-            }else if(DealerHand.Value>PlayerHand.Value && DealerHand.Value < 21) {
+            }
+            else if (DealerHand.Value > PlayerHand.Value && DealerHand.Value < 21 && GameState == GameState.GameOver) {
                 temp = "Dealer Wins";
             }
             return temp;
@@ -79,6 +86,9 @@ namespace BlackJackGame.Models {
             if (GameState == GameState.PlayerPlays) {
                 GameState = GameState.DealerPlays;
             }
+            if (PlayerHand.Value == DealerHand.Value) {
+                GameState = GameState.GameOver;
+            }
         }
 
 
@@ -89,7 +99,7 @@ namespace BlackJackGame.Models {
             AddCardToHand(DealerHand, false);
             AddCardToHand(PlayerHand, true);
             AddCardToHand(PlayerHand, true);
-            
+
 
             PlayerHand.TurnAllCardsFaceUp();
         }
